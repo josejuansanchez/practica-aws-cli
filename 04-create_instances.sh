@@ -6,9 +6,9 @@ set -x
 export AWS_PAGER=""
 
 # Variables de configuración
-AMI_ID=ami-0472eef47f816e45d
+AMI_ID=ami-06878d265978313ca
 COUNT=1
-INSTANCE_TYPE=t2.micro
+INSTANCE_TYPE=t2.small
 KEY_NAME=vockey
 
 SECURITY_GROUP_FRONTEND=frontend-sg
