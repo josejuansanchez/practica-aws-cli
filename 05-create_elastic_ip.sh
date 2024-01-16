@@ -5,12 +5,13 @@ set -x
 # Referencia: https://docs.aws.amazon.com/es_es/cli/latest/userguide/cliv2-migration.html#cliv2-migration-output-pager
 export AWS_PAGER=""
 
-# Configuramos el nombre de la instancia a la que le vamos a asignar la IP elástica
-INSTANCE_NAME=load-balancer
+# Importamos las variables de entorno para obtener el nombre
+# de la instancia a la que le vamos a asignar la IP elástica
+source .env
 
 # Obtenemos el Id de la instancia a partir de su nombre
 INSTANCE_ID=$(aws ec2 describe-instances \
-            --filters "Name=tag:Name,Values=$INSTANCE_NAME" \
+            --filters "Name=tag:Name,Values=$INSTANCE_NAME_FRONTEND" \
                       "Name=instance-state-name,Values=running" \
             --query "Reservations[*].Instances[*].InstanceId" \
             --output text)

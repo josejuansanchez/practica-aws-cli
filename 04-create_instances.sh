@@ -6,45 +6,16 @@ set -x
 export AWS_PAGER=""
 
 # Variables de configuración
-AMI_ID=ami-06878d265978313ca
-COUNT=1
-INSTANCE_TYPE=t2.small
-KEY_NAME=vockey
+source .env
 
-SECURITY_GROUP_FRONTEND=frontend-sg
-SECURITY_GROUP_BACKEND=backend-sg
-
-INSTANCE_NAME_LOAD_BALANCER=load-balancer
-INSTANCE_NAME_FRONTEND_01=frontend-01
-INSTANCE_NAME_FRONTEND_02=frontend-02
-INSTANCE_NAME_BACKEND=backend
-
-# Creamos una intancia EC2 para el balanceador de carga
+# Creamos una intancia EC2 para el frontend
 aws ec2 run-instances \
     --image-id $AMI_ID \
     --count $COUNT \
     --instance-type $INSTANCE_TYPE \
     --key-name $KEY_NAME \
     --security-groups $SECURITY_GROUP_FRONTEND \
-    --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE_NAME_LOAD_BALANCER}]"
-
-# Creamos una intancia EC2 para el frontend-01
-aws ec2 run-instances \
-    --image-id $AMI_ID \
-    --count $COUNT \
-    --instance-type $INSTANCE_TYPE \
-    --key-name $KEY_NAME \
-    --security-groups $SECURITY_GROUP_FRONTEND \
-    --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE_NAME_FRONTEND_01}]"
-
-# Creamos una intancia EC2 para el frontend-02
-aws ec2 run-instances \
-    --image-id $AMI_ID \
-    --count $COUNT \
-    --instance-type $INSTANCE_TYPE \
-    --key-name $KEY_NAME \
-    --security-groups $SECURITY_GROUP_FRONTEND \
-    --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE_NAME_FRONTEND_02}]"
+    --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE_NAME_FRONTEND}]"
 
 # Creamos una intancia EC2 para el backend
 aws ec2 run-instances \
